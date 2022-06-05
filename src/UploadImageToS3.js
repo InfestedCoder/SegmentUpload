@@ -49,15 +49,15 @@ const UploadImageToS3 = () => {
     return <>
         <div>Top</div>
         <input type="file" onChange={handleFileInput}/>
-        <button onClick={() => uploadFile(selectedFile, DRAWING_ID,'top')}> Upload top to S3</button>
+        <button onClick={() => uploadFile(selectedFile, DRAWING_ID, 'top')}> Upload top to S3</button>
 
         <div>Middle</div>
         <input type="file" onChange={handleFileInput}/>
-        <button onClick={() => uploadFile(selectedFile, DRAWING_ID,'middle')}> Upload top to S3</button>
+        <button onClick={() => uploadFile(selectedFile, DRAWING_ID, 'middle')}> Upload middle to S3</button>
 
         <div>Bottom</div>
         <input type="file" onChange={handleFileInput}/>
-        <button onClick={() => uploadFile(selectedFile, DRAWING_ID,'bottom')}> Upload top to S3</button>
+        <button onClick={() => uploadFile(selectedFile, DRAWING_ID, 'bottom')}> Upload bottom to S3</button>
     </>
 }
 
