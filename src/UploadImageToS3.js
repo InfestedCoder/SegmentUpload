@@ -27,8 +27,6 @@ const UploadImageToS3 = () => {
             mode: "cors"
         }
 
-
-        // TODO - Pass in the id of the drawing the segement belongs to
         const url = initiateUploadURL + '/drawings/' + drawingId + '/segments/' + segment;
 
         fetch(url, requestObject)
