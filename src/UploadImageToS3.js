@@ -1,21 +1,23 @@
 import React, {useState} from 'react';
 
-// TODO - pass in the id of the drawing we want to add segments to
-const DRAWING_ID = 'b794d585-aefb-460e-b618-9ed36df857e9';
-
 // TODO - pass in as an environment variable
-const initiateUploadURL = 'http://localhost:3000'
+const serverUrl = 'http://localhost:3000'
+
+let drawing;
 
 const UploadImageToS3 = () => {
     const [selectedFile, setSelectedFile] = useState(null);
 
     const handleFileInput = (e) => setSelectedFile(e.target.files[0]);
 
-    const uploadFile = (file, drawingId, segment) => {
+    const uploadFile = async (file, segment) => {
+        if (!drawing) {
+            drawing = await createDrawing();
+        }
         const body = {
             contentType: "image/jpeg",
             ext: "jpg",
-            createdBy: "Alberto"
+            createdBy: "Sam Segment"
         }
 
         const requestObject = {
@@ -27,7 +29,7 @@ const UploadImageToS3 = () => {
             mode: "cors"
         }
 
-        const url = initiateUploadURL + '/drawings/' + drawingId + '/segments/' + segment;
+        const url = serverUrl + '/drawings/' + drawing.id + '/segments/' + segment;
 
         fetch(url, requestObject)
             .then(res => res.json())
@@ -45,18 +47,38 @@ const UploadImageToS3 = () => {
 
 
     return <>
-        <div>Top</div>
+        <div>Image</div>
         <input type="file" onChange={handleFileInput}/>
-        <button onClick={() => uploadFile(selectedFile, DRAWING_ID, 'top')}> Upload top to S3</button>
+
+        <div>Top</div>
+        <button onClick={() => uploadFile(selectedFile, 'top')}> Upload as top</button>
 
         <div>Middle</div>
-        <input type="file" onChange={handleFileInput}/>
-        <button onClick={() => uploadFile(selectedFile, DRAWING_ID, 'middle')}> Upload middle to S3</button>
+        <button onClick={() => uploadFile(selectedFile, 'middle')}> Upload as middle</button>
 
         <div>Bottom</div>
-        <input type="file" onChange={handleFileInput}/>
-        <button onClick={() => uploadFile(selectedFile, DRAWING_ID, 'bottom')}> Upload bottom to S3</button>
+        <button onClick={() => uploadFile(selectedFile, 'bottom')}> Upload as bottom</button>
     </>
+}
+
+async function createDrawing() {
+    const url = serverUrl + '/drawings';
+
+    const body = {
+        createdBy: "Dawn Drawing"
+    }
+
+    const requestObject = {
+        method: 'POST',
+        body: JSON.stringify(body),
+        headers: {
+            "Content-Type": "application/json",
+        },
+        mode: "cors"
+    }
+
+    const response = await fetch(url, requestObject);
+    return await response.json();
 }
 
 export default UploadImageToS3;
