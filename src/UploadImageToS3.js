@@ -68,7 +68,9 @@ async function realizeDrawing(priorDrawingId, priorPlacement) {
     return await response.json();
 }
 
-const SaveImage = async () => {
+const SaveImage = async (ev) => {
+    document.getElementsByClassName('save')[0].setAttribute('disabled', 'true')
+
     let canvas = document.getElementById("canvas")
     let data = canvas.toDataURL("image/jpeg")
     const blobData = dataURItoBlob(data);
@@ -132,6 +134,7 @@ const uploadFile = async (file) => {
             }).then((res) => {
                 console.log('Upload succeeded!')
                 reset(segment.drawing.id,segment.placement);
+                document.getElementsByClassName('save')[0].removeAttribute('disabled')
             }).catch(err => {
                 alert('Error uploading segment')
                 console.log(err)

@@ -40,7 +40,7 @@ canvas{
   transform: scale(1.2);
 }
 .clr:nth-child(1){
-  background-color: #000;
+  background-color: #fff;
 }
 .clr:nth-child(2){
   background-color: #EF626C;
@@ -52,7 +52,7 @@ canvas{
   background-color: #24d102;
 }
 .clr:nth-child(5){
-  background-color: #fff;
+  background-color: #000;
 }
 
 button{
@@ -64,6 +64,7 @@ button{
   color: #fff;
   margin: 2px;
 }
+
 .save{
   background-color: #0f65d4;
 }
